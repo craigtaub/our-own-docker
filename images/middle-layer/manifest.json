@@ -1,0 +1,17 @@
+{
+  "Ref": "docker.io/library/first-image:latest",
+  "Digest": "sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f",
+  "SchemaV2Manifest": {
+    "layers": [
+      {
+        "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "size": 972,
+        "digest": "sha256:b04784fba78d739b526e27edc02a5a8cd07b1052e9283f5fc155828f4b614c28"
+      }
+    ]
+  },
+  "Platform": {
+    "architecture": "amd64",
+    "os": "linux"
+  }
+}
