@@ -2,12 +2,20 @@ import { unlinkSync } from "fs";
 import ncp from "ncp";
 import { promisify } from "util";
 import { spawn } from "child_process";
+import fetch from "node-fetch";
 
 const asyncNcp = promisify(ncp.ncp);
 const command = process.argv[2];
 
 async function run() {
   switch (command) {
+    case "build":
+      const response = await fetch("http://localhost:3000/build-app/x");
+      if (response.status) {
+        console.log("SUCCESS");
+        return;
+      }
+      console.log("Failure :(");
     case "run":
       const image = process.argv[3];
       // copy image contents, exclude configs
