@@ -5,10 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "daemon": "node daemon.js",
+    "daemon": "node --experimental-json-modules daemon.js",
     "clean": "rm -rf tmp/*",
     "cli": "node --experimental-json-modules cli.js",
-    "docker-run": "npm run cli run middle-layer && npm run clean",
+    "docker-run": "npm run cli run middle-layer",
     "docker-build": "npm run cli build"
   },
   "author": "",

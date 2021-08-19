@@ -1,0 +1,5 @@
+FROM 'this'
+ENV NODE_VERSION=14.16.1
+WORKDIR /usr/src/app
+COPY fileA.txt fileB.txt 
+RUN ["npm", "run", "start.dev"]
