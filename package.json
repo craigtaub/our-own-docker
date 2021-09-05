@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "daemon": "node --experimental-json-modules daemon.js",
+    "daemon": "node --experimental-json-modules daemon/index.js",
     "clean": "rm -rf tmp/*",
     "cli": "node --experimental-json-modules cli.js",
     "docker-run": "npm run cli run middle-layer",
