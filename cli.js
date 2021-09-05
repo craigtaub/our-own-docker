@@ -1,17 +1,13 @@
-import { unlinkSync } from "fs";
-import ncp from "ncp";
-import { promisify } from "util";
-import { spawn } from "child_process";
 import fetch from "node-fetch";
 
-const asyncNcp = promisify(ncp.ncp);
 const command = process.argv[2];
 
 async function run() {
   let response;
   switch (command) {
     case "build":
-      response = await fetch("http://localhost:3000/build/.");
+      const imageToBuild = process.argv[3];
+      response = await fetch(`http://localhost:3000/build/${imageToBuild}`);
       break;
     case "run":
       const image = process.argv[3];
