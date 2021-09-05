@@ -1,5 +1,5 @@
 FROM lowest-layer
 ENV NODE_VERSION=13.0.0
 WORKDIR /usr/src/app
-COPY fileA.txt fileB.txt 
+COPY fileA.txt fileB.txt /usr/src/app
 CMD ["npm", "run", "start.dev"]
