@@ -14,7 +14,7 @@ Run docker cli command
 
 ## Objects
 
-- Daemon
+- Daemon - express server, commands in child process, utilise build cache
 - Images - based off overlay2 storage driver
 - Containers
 - Networks
