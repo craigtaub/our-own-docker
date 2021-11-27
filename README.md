@@ -35,7 +35,7 @@ Build the local `OurDockerfile` into images based off overlay2 storage driver. R
 
 > npm run cli run middle-layer
 
-1. Creates a writeable container layer over the specified image (`tmp`).
+1. Creates a writeable container layer over the specified image (copies image to `tmp`).
 2. Starts our container (virtualized runtime environment) using the specified command
 
 #### Ignored

@@ -87,9 +87,10 @@ export default async function (buildImage) {
 
     console.log(`SUCCESS - Created layer: ${layerName}`);
     await delay(1000);
-    // // move tmp to new image
+    // move tmp to new image
     await asyncNcp(`${fullPath}/tmp`, `images/${layerName}`);
-    // // remove tmp
-    await asyncRimraf(`${fullPath}/tmp/`, {});
+    // remove tmp
+    // TODO - adding ] to config.json, breaking elsewhere, not sure why
+    // await asyncRimraf(`${fullPath}/tmp/`, {});
   }
 }

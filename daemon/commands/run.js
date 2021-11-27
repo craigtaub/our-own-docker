@@ -14,7 +14,7 @@ export default async function (image) {
   console.log("copied");
 
   // process config
-  const fullConfig = await import("../../images/middle-layer/config.json");
+  const fullConfig = await import(`../../images/${image}/config.json`);
   const config = fullConfig.default[0].Config;
   const splitCommand = config.Cmd;
   // env is key:value pairs
