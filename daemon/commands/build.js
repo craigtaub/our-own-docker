@@ -64,7 +64,11 @@ const commitMap = {
       // copy files
       await asyncCopyFile(file, `${fullPath}/tmp/diff${cpyLoc}/${file}`);
     });
-    // TODO update tmp/lower to tmp/middle
+  },
+  cmd: async (values) => {
+    const config = await utils.grabConfig();
+    config.Config.Cmd = values;
+    await utils.updateConfig(config);
   },
 };
 
@@ -90,5 +94,8 @@ export default async function (buildImage) {
     linesArray.map(async (line) => {
       await commitLine(line);
     });
+    // create new image
+
+    console.log("");
   }
 }
