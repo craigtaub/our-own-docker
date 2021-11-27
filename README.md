@@ -29,6 +29,7 @@ Build the local `OurDockerfile` into images based off overlay2 storage driver. R
 
 - Commit result of each instruction to new image layer.
 - Use build cache
+- image layer unique id is sha256 hash of image contents
 
 ### Run
 

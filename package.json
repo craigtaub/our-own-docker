@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "daemon": "node --experimental-json-modules daemon/index.js",
-    "clean": "rm -rf tmp/*",
+    "clean": "rm -rf tmp/* && rm -rf images/highest-layer",
     "cli": "node --experimental-json-modules cli.js",
     "test:docker-run": "npm run cli run middle-layer",
     "test:docker-build": "npm run cli build ."

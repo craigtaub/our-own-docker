@@ -1,34 +1,14 @@
-import { readFile, writeFile, copyFile, mkdir } from "fs";
 import path from "path";
-import ncp from "ncp";
-import { promisify } from "util";
-import rimraf from "rimraf";
+import utils, {
+  asyncNcp,
+  asyncReadFile,
+  asyncWriteFile,
+  asyncCopyFile,
+  asyncRimraf,
+  asyncMkdir,
+  delay,
+} from "./utils.js";
 
-const asyncNcp = promisify(ncp.ncp);
-const asyncReadFile = promisify(readFile);
-const asyncWriteFile = promisify(writeFile);
-const asyncCopyFile = promisify(copyFile);
-const asyncRimraf = promisify(rimraf.sync);
-const asyncMkdir = promisify(mkdir);
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const utils = {
-  getFullPath: () => path.resolve(path.dirname("")),
-  grabConfig: async () => {
-    await delay(1000);
-    const fullPath = utils.getFullPath();
-    const fullConfig = await import(`${fullPath}/tmp/config.json`);
-    return fullConfig.default[0];
-  },
-  updateConfig: async (config) => {
-    // const fullPath = path.resolve(path.dirname(""));
-    const fullPath = utils.getFullPath();
-    return asyncWriteFile(
-      `${fullPath}/tmp/config.json`,
-      JSON.stringify([config])
-    );
-  },
-};
 const commitMap = {
   from: async (layer) => {
     // move to tmp for processing
@@ -85,17 +65,31 @@ async function commitLine(line) {
 export default async function (buildImage) {
   if (buildImage === ".") {
     // default local image
-    const fullPath = path.resolve(path.dirname(""), "./OurDockerfile");
-    const file = await asyncReadFile(fullPath, {
+    const dockerFilePath = path.resolve(path.dirname(""), "./OurDockerfile");
+    const file = await asyncReadFile(dockerFilePath, {
       encoding: "utf-8",
     });
     // good for small files, NOT big ones
     const linesArray = file.split(/\r?\n/);
-    linesArray.map(async (line) => {
-      await commitLine(line);
-    });
+    await linesArray.map(async (line) => await commitLine(line));
+    // required for above OS ops to finish
+    await delay(1000);
     // create new image
+    const layerName = "highest-layer";
 
-    console.log("");
+    const fullPath = utils.getFullPath();
+    // update link (HIGHEST-LAYER) + lower (MIDDLE-ID)
+    const link = await asyncReadFile(`${fullPath}/tmp/link`, {
+      encoding: "utf-8",
+    });
+    await asyncWriteFile(`${fullPath}/tmp/link`, layerName.toUpperCase());
+    await asyncWriteFile(`${fullPath}/tmp/lower`, link);
+
+    console.log(`SUCCESS - Created layer: ${layerName}`);
+    await delay(1000);
+    // // move tmp to new image
+    await asyncNcp(`${fullPath}/tmp`, `images/${layerName}`);
+    // // remove tmp
+    await asyncRimraf(`${fullPath}/tmp/`, {});
   }
 }

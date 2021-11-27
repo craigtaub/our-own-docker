@@ -1,2 +1,5 @@
 node_modules
+# container writable layer
 tmp
+# test image
+images/highest-layer
