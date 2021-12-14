@@ -23,7 +23,7 @@ Start the deamon - an express server executing commands in child process.
 
 > npm run cli build .
 
-Build the local `OurDockerfile` into images based off overlay2 storage driver. Run instructions 1 at a time, create new image layer.
+Build the local `OurDockerfile` into images based off overlay2 storage driver. Run instructions 1 at a time, create new image layer `images/highest-layer`.
 
 #### Ignored
 
@@ -33,10 +33,22 @@ Build the local `OurDockerfile` into images based off overlay2 storage driver. R
 
 ### Run
 
-> npm run cli run middle-layer
-
 1. Creates a writeable container layer over the specified image (copies image to `tmp`).
 2. Starts our container (virtualized runtime environment) using the specified command
+
+#### middle-layer
+
+> npm run cli run middle-layer
+
+- Built with command `npm run start.dev`.
+- Outputs `"run DEV app"`
+
+#### highest-layer
+
+> npm run cli run highest-layer
+
+- Built with command `npm run start.prod`.
+- Outputs `"run PROD app"`
 
 #### Ignored
 
