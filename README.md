@@ -19,7 +19,7 @@ Start the deamon - an express server executing commands in child process.
 
 ## Docker CLI
 
-### Build iamge
+### Build image
 
 > npm run cli build .
 
